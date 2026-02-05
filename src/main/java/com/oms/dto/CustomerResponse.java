@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data //only generated getters and setters for private fields
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerResponse { // this class may be used in the future version
+public class CustomerResponse { // this class is used to show customer details aligns with order
 
     private String firstname, lastname, email, phoneNumber,
             addressLine1, addressLine2, cityName,

@@ -9,6 +9,7 @@ import com.oms.entity.Customer;
 import com.oms.repository.ICityRepository;
 import com.oms.repository.ICountryRepository;
 import com.oms.repository.ICustomerRepository;
+import com.oms.utils.EmailValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,16 +32,24 @@ public class CustomerService{
         this.countryService = countryService;
     }
 
+    //map request to entity and save to db
     public Customer saveCustomer(CustomerRequest request) {
-        if (request == null) {
-            throw new IllegalArgumentException("Customer cannot be null");
-        }
+        //don't need to check null bc always create req in controller bf calling service
+//        if (request == null) {
+//            throw new IllegalArgumentException("Customer cannot be null");
+//        }
         //validate not null fields input
         validateNotBlank(request.getFirstname(), "Firstname");
         validateNotBlank(request.getLastname(), "Lastname");
         validateNotBlank(request.getEmail(), "Email");
+        EmailValidation.validateEmail(request.getEmail());
+        if (isCustomerExist(request.getEmail())) {
+            throw new IllegalArgumentException("Email already exist");
+        }
         validateNotBlank(request.getAddressLine1(), "Address Line 1");
 
+
+        //map to customer
         Customer customer = new Customer(
                 request.getFirstname(),
                 request.getLastname(),
@@ -58,8 +67,10 @@ public class CustomerService{
         }
         Country country = countryService.findById(request.getCountryId());
         customer.setCountry(country);
+
         //validate city input
         validateNotBlank(request.getCityName(), "City");
+        //bc save city in db therefore need to create new city if db not available
         City city = cityRepository.findByCityNameIgnoreCase(request.getCityName().trim())
                 .orElseGet(() -> {
                     City newCity = new City();
@@ -71,6 +82,7 @@ public class CustomerService{
         return customerRepository.save(customer);
     }
 
+    //map entity to response use when want to show order details
     public CustomerResponse mapToResponse(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");

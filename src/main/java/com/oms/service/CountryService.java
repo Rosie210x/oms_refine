@@ -17,11 +17,13 @@ public class CountryService {
         this.countryRepository = countryRepository;
     }
 
+    //find country in db when input customer data
     public Country findById(Long id) {
         return countryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Country not found"));
     }
 
+    //find all country in db to show in dropdown
     public List<Country> findAll() {
         return countryRepository.findAll();
     }

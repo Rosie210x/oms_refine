@@ -45,7 +45,6 @@
         </c:forEach>
         </tbody>
     </table>
-    <p>Đặng Tâm</p>
 </div>
 
 <!-- Bootstrap JS -->

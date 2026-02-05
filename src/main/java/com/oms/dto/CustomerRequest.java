@@ -13,5 +13,5 @@ public class CustomerRequest { //this class is used to input customer data
     private String firstname, lastname, email, phoneNumber,
             addressLine1, addressLine2, cityName,
             region, postalCode;
-    private Long countryId;
+    private Long countryId; //id bc using select box
 }
