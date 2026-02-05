@@ -23,27 +23,28 @@
         <thead class="thead-dark">
         <tr>
             <th>Order ID</th>
+            <th>Order Date</th>
             <th>Full Name</th>
-            <th>Email</th>
             <th>Shipping Address</th>
             <th>City</th>
+            <th>Region</th>
+            <th>Postal Code</th>
+            <th>Country</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="order" items="${orders}">
-            <tr>
-                <td>${order.orderId}</td>
-                <td>${order.customerResponse.firstname} ${order.customerResponse.lastname}</td>
-                <td>
-                    <a href="${pageContext.request.contextPath}/order-details?orderId=${order.orderId}">
-                            ${order.customerResponse.email}
-                    </a>
-                </td>
-                <td>${order.customerResponse.addressLine1}</td>
-                <td>${order.customerResponse.city}</td>
-            </tr>
-        </c:forEach>
+        <tr>
+            <td>${orderResponse.orderCode}</td>
+            <td>${orderResponse.orderDate}</td>
+            <td>${orderResponse.customerResponse.firstname} ${orderResponse.customerResponse.lastname}</td>
+            <td>${orderResponse.customerResponse.addressLine1} ${orderResponse.customerResponse.addressLine2}</td>
+            <td>${orderResponse.customerResponse.cityName}</td>
+            <td>${orderResponse.customerResponse.region}</td>
+            <td>${orderResponse.customerResponse.postalCode}</td>
+            <td>${orderResponse.customerResponse.countryName}</td>
+        </tr>
         </tbody>
+
     </table>
 </div>
 

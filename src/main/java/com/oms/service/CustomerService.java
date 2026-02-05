@@ -35,12 +35,11 @@ public class CustomerService{
         if (request == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        if (request.getEmail() == null || request.getEmail().isBlank()) {
-            throw new IllegalArgumentException("Email cannot be empty");
-        }
-        if (customerRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Customer with email: " + request.getEmail() + " already exists");
-        }
+        //validate not null fields input
+        validateNotBlank(request.getFirstname(), "Firstname");
+        validateNotBlank(request.getLastname(), "Lastname");
+        validateNotBlank(request.getEmail(), "Email");
+        validateNotBlank(request.getAddressLine1(), "Address Line 1");
 
         Customer customer = new Customer(
                 request.getFirstname(),
@@ -55,16 +54,19 @@ public class CustomerService{
 
         //validate country input
         if (request.getCountryId() == null) {
-            throw new RuntimeException("Country cannot be empty");
+            throw new IllegalArgumentException("Country ID cannot be null");
         }
         Country country = countryService.findById(request.getCountryId());
         customer.setCountry(country);
-
-        if (request.getCityName() == null || request.getCityName().isBlank()) {
-            throw new RuntimeException("City cannot be empty");
-        }
+        //validate city input
+        validateNotBlank(request.getCityName(), "City");
         City city = cityRepository.findByCityNameIgnoreCase(request.getCityName().trim())
-                .orElseThrow(() -> new IllegalArgumentException("City not found"));
+                .orElseGet(() -> {
+                    City newCity = new City();
+                    newCity.setCityName(request.getCityName().trim());
+                    newCity.setCountry(country);
+                    return cityRepository.save(newCity);
+                });
         customer.setCity(city);
         return customerRepository.save(customer);
     }
@@ -73,8 +75,10 @@ public class CustomerService{
         if (customer == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
+
         String cityName = customer.getCity() != null ? customer.getCity().getCityName() : null;
         String countryName = customer.getCountry() != null ? customer.getCountry().getCountryName() : null;
+
         CustomerResponse response = new CustomerResponse(
                 customer.getFirstname(),
                 customer.getLastname(),
@@ -89,6 +93,12 @@ public class CustomerService{
         );
 
         return response;
+    }
+
+    private void validateNotBlank(String value, String fieldName) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(fieldName + " cannot be empty");
+        }
     }
 
     public boolean isCustomerExist(String email) {

@@ -20,7 +20,7 @@ public class Order {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long orderId;
 
-    @Column(name="order_code", nullable=false, unique=true)
+    @Column(name="order_code")
     private String orderCode;
 
     @Column(name = "order_date", nullable = false)
@@ -34,5 +34,7 @@ public class Order {
         this.orderDate = orderDate;
         this.customer = customer;
     }
+
+
 
 }

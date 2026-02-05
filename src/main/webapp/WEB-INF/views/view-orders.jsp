@@ -30,21 +30,22 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="order" items="${orders}">
+        <c:forEach var="orderResponse" items="${orderResponses}">
             <tr>
-                <td>${order.orderId}</td>
-                <td>${order.customerResponse.firstname} ${order.customerResponse.lastname}</td>
+                <td>${orderResponse.orderCode}</td>
+                <td>${orderResponse.customerResponse.firstname} ${orderResponse.customerResponse.lastname}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/order-details?id=${order.orderId}">
-                            ${order.customerResponse.email}
+                    <a href="${pageContext.request.contextPath}/order-details?orderCode=${orderResponse.orderCode}">
+                            ${orderResponse.customerResponse.email}
                     </a>
                 </td>
-                <td>${order.customerResponse.addressLine1}</td>
-                <td>${order.customerResponse.city}</td>
+                <td>${orderResponse.customerResponse.addressLine1}</td>
+                <td>${orderResponse.customerResponse.cityName}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <p>Đặng Tâm</p>
 </div>
 
 <!-- Bootstrap JS -->

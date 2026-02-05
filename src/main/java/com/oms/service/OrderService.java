@@ -37,9 +37,11 @@ public class OrderService {
         }
         Order order = new Order(LocalDateTime.now(), customer);
         Order savedOrder = orderRepository.save(order);
-        savedOrder.setOrderCode(String.format("ORD%03d", savedOrder.getOrderId()));
+        String orderCode = String.format("ORD%03d", savedOrder.getOrderId());
+        savedOrder.setOrderCode(orderCode);
         return orderRepository.save(savedOrder);
     }
+
     public OrderResponse mapToOrderResponse(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null");
