@@ -31,12 +31,6 @@ public class Customer {
     @Column(name="phone_number")
     private String phoneNumber;
 
-    @Column(name="address_line1", nullable=false)
-    private String addressLine1;
-
-    @Column(name="address_line2")
-    private String addressLine2;
-
     @Column(name="region")
     private String region;
 
@@ -54,13 +48,11 @@ public class Customer {
     @OneToMany(mappedBy="customer")
     private List<Order> orders;
 
-    public Customer(String firstname, String lastname, String email, String phoneNumber, String addressLine1, String addressLine2, String region, String postalCode) {
+    public Customer(String firstname, String lastname, String email, String phoneNumber, String region, String postalCode) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
         this.region = region;
         this.postalCode = postalCode;
     }

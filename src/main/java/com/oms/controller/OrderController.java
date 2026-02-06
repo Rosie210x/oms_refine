@@ -58,10 +58,7 @@ public class OrderController {
             String countryId_raw = request.getParameter("country");
             Long countryId = Long.parseLong(countryId_raw);
             CustomerRequest customerRequest = new CustomerRequest(firstName, lastName, email, phoneNumber, addressLine1, addressLine2, city, region, postalCode, countryId);
-//            logger.info("CustomerRequest Address Line I: " + customerRequest.getAddressLine1());
-//            Customer customer = customerService.saveCustomer(customerRequest);
-//            logger.info("Customer Address Line I: " + customer.getAddressLine1());
-            Order order = orderService.saveOrder(customerRequest);
+            orderService.saveOrder(customerRequest);
             return "redirect:/order-form";
         } else if (request.getParameter("cancel") != null){
             return "redirect:/order-form";

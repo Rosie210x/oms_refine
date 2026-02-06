@@ -37,7 +37,7 @@
             <td>${orderResponse.orderCode}</td>
             <td>${orderResponse.orderDate}</td>
             <td>${orderResponse.customerResponse.firstname} ${orderResponse.customerResponse.lastname}</td>
-            <td>${orderResponse.customerResponse.addressLine1} ${orderResponse.customerResponse.addressLine2}</td>
+            <td>${orderResponse.addressLine1} ${orderResponse.addressLine2}</td>
             <td>${orderResponse.customerResponse.cityName}</td>
             <td>${orderResponse.customerResponse.region}</td>
             <td>${orderResponse.customerResponse.postalCode}</td>

@@ -26,15 +26,21 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
+    @Column(name="address_line1", nullable=false)
+    private String addressLine1;
+
+    @Column(name="address_line2")
+    private String addressLine2;
+
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
-    public Order(LocalDateTime orderDate, Customer customer) {
+    public Order(LocalDateTime orderDate, Customer customer, String addressLine1, String addressLine2) {
         this.orderDate = orderDate;
         this.customer = customer;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
     }
-
-
 
 }

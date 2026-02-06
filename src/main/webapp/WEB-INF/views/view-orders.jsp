@@ -39,7 +39,7 @@
                             ${order.customer.email}
                     </a>
                 </td>
-                <td>${order.customer.addressLine1}</td>
+                <td>${order.addressLine1} ${order.addressLine2}</td>
                 <td>${order.customer.city.cityName}</td>
             </tr>
         </c:forEach>

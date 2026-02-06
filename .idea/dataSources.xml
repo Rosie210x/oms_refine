@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="jdbc:sqlserver://localhost:1433;databaseName=OrderManagementSystemRefine;encrypt=true;trustServerCertificate=true [DEBUG]" group="​OrderManagementSystem" uuid="3565cb74-7a04-4ec8-82ca-e3ae398383e3">
+    <data-source source="LOCAL" name="jdbc:sqlserver://localhost:1433;databaseName=OrderManagementSystemRefine;encrypt=true;trustServerCertificate=true [DEBUG]" group="​OrderManagementSystem" uuid="bd571800-9cb2-4e04-9086-adc2f19ab68a">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

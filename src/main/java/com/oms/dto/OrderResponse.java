@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 public class OrderResponse { //this class is used to show orders's list and details
 
     private String orderCode;
-
-    private String orderDate;
-
+    private String orderDate, addressLine1, addressLine2;
     private CustomerResponse customerResponse;
-
 }

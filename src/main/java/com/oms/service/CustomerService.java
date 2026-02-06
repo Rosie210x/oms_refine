@@ -46,20 +46,18 @@ public class CustomerService{
         validateNotBlank(request.getLastname(), "Lastname");
         validateNotBlank(request.getEmail(), "Email");
         EmailValidation.validateEmail(request.getEmail());
-        validateNotBlank(request.getAddressLine1(), "Address Line 1");
 
         Optional<Customer> existingCustomer = findByEmail(request.getEmail());
         if (existingCustomer.isPresent()) {
             return existingCustomer.get();
         }
+
         //map to customer
         Customer customer = new Customer(
                 request.getFirstname(),
                 request.getLastname(),
                 request.getEmail(),
                 request.getPhoneNumber(),
-                request.getAddressLine1(),
-                request.getAddressLine2(),
                 request.getRegion(),
                 request.getPostalCode()
         );
@@ -99,8 +97,6 @@ public class CustomerService{
                 customer.getLastname(),
                 customer.getEmail(),
                 customer.getPhoneNumber(),
-                customer.getAddressLine1(),
-                customer.getAddressLine2(),
                 cityName,
                 customer.getRegion(),
                 customer.getPostalCode(),

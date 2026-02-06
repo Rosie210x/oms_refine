@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerResponse { // this class is used to show customer details aligns with order
 
-    private String firstname, lastname, email, phoneNumber,
-            addressLine1, addressLine2, cityName,
+    private String firstname, lastname, email, phoneNumber, cityName,
             region, postalCode, countryName;
+
 }

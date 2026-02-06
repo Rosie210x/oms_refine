@@ -35,7 +35,7 @@ public class OrderService {
                 .orElseGet(() -> customerService.saveCustomer(request));
 
         //initialize new order to get id
-        Order order = new Order(LocalDateTime.now(), customer);
+        Order order = new Order(LocalDateTime.now(), customer, request.getAddressLine1(), request.getAddressLine2());
         Order savedOrder = orderRepository.save(order);
         //after save one time, got new id, then can format new orderCode base on id and save to db
         String orderCode = String.format("ORD%03d", savedOrder.getOrderId());
@@ -48,10 +48,11 @@ public class OrderService {
             throw new IllegalArgumentException("Order cannot be null");
         }
         OrderResponse orderResponse = new OrderResponse(
-            order.getOrderCode(),
-            //format date for view
-            order.getOrderDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")),
-            customerService.mapToResponse(order.getCustomer())
+                order.getOrderCode(),
+                order.getOrderDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")),
+                order.getAddressLine1(),
+                order.getAddressLine2(),
+                customerService.mapToResponse(order.getCustomer())
         );
         return orderResponse;
     }
