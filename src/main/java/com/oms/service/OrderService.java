@@ -34,7 +34,7 @@ public class OrderService {
         Customer customer = customerService.findByEmail(request.getEmail())
                 .orElseGet(() -> customerService.saveCustomer(request));
 
-        //initialze new order to get id
+        //initialize new order to get id
         Order order = new Order(LocalDateTime.now(), customer);
         Order savedOrder = orderRepository.save(order);
         //after save one time, got new id, then can format new orderCode base on id and save to db
@@ -57,12 +57,8 @@ public class OrderService {
     }
 
     //func used for view all order responses
-    public List<OrderResponse> fetchAllOrder() {
-        List<OrderResponse> orderResponses = new ArrayList<>();
-        for (Order order : orderRepository.findAll()) {
-            orderResponses.add(mapToOrderResponse(order));
-        }
-        return orderResponses;
+    public List<Order> fetchAllOrder() {
+        return orderRepository.findAll();
     }
 
     //func used for view order response details

@@ -30,17 +30,17 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="orderResponse" items="${orderResponses}">
+        <c:forEach var="order" items="${orders}">
             <tr>
-                <td>${orderResponse.orderCode}</td>
-                <td>${orderResponse.customerResponse.firstname} ${orderResponse.customerResponse.lastname}</td>
+                <td>${order.orderCode}</td>
+                <td>${order.customer.firstname} ${order.customer.lastname}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/order-details?orderCode=${orderResponse.orderCode}">
-                            ${orderResponse.customerResponse.email}
+                    <a href="${pageContext.request.contextPath}/order-details?orderCode=${order.orderCode}">
+                            ${order.customer.email}
                     </a>
                 </td>
-                <td>${orderResponse.customerResponse.addressLine1}</td>
-                <td>${orderResponse.customerResponse.cityName}</td>
+                <td>${order.customer.addressLine1}</td>
+                <td>${order.customer.city.cityName}</td>
             </tr>
         </c:forEach>
         </tbody>

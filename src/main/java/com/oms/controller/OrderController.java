@@ -71,8 +71,8 @@ public class OrderController {
 
     @GetMapping("/view-orders")
     public String viewOrders(HttpServletRequest request){
-        List<OrderResponse> orderResponses = orderService.fetchAllOrder();
-        request.setAttribute("orderResponses", orderResponses);
+        List<Order> orders = orderService.fetchAllOrder();
+        request.setAttribute("orders", orders);
         return "view-orders";
     }
 
