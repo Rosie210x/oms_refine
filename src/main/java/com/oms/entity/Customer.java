@@ -25,7 +25,7 @@ public class Customer {
     @Column(name="lastname", nullable=false)
     private String lastname;
 
-    @Column(name="email", unique=true, nullable=false)
+    @Column(name="email", unique = true, nullable=false)
     private String email;
 
     @Column(name="phone_number")
@@ -51,8 +51,8 @@ public class Customer {
     @JoinColumn(name="country_id")
     private Country country;
 
-    @OneToOne(mappedBy="customer")
-    private Order order;
+    @OneToMany(mappedBy="customer")
+    private List<Order> orders;
 
     public Customer(String firstname, String lastname, String email, String phoneNumber, String addressLine1, String addressLine2, String region, String postalCode) {
         this.firstname = firstname;

@@ -13,6 +13,8 @@ import com.oms.utils.EmailValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService{
 
@@ -38,17 +40,18 @@ public class CustomerService{
 //        if (request == null) {
 //            throw new IllegalArgumentException("Customer cannot be null");
 //        }
+
         //validate not null fields input
         validateNotBlank(request.getFirstname(), "Firstname");
         validateNotBlank(request.getLastname(), "Lastname");
         validateNotBlank(request.getEmail(), "Email");
         EmailValidation.validateEmail(request.getEmail());
-        if (isCustomerExist(request.getEmail())) {
-            throw new IllegalArgumentException("Email already exist");
-        }
         validateNotBlank(request.getAddressLine1(), "Address Line 1");
 
-
+        Optional<Customer> existingCustomer = findByEmail(request.getEmail());
+        if (existingCustomer.isPresent()) {
+            return existingCustomer.get();
+        }
         //map to customer
         Customer customer = new Customer(
                 request.getFirstname(),
@@ -113,11 +116,8 @@ public class CustomerService{
         }
     }
 
-    public boolean isCustomerExist(String email) {
-        if (email == null || email.isBlank()) {
-            return false;
-        }
-        return customerRepository.existsByEmail(email);
-    }
 
+    public Optional<Customer> findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
 }

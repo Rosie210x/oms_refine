@@ -1,5 +1,6 @@
 package com.oms.service;
 
+import com.oms.dto.CustomerRequest;
 import com.oms.dto.CustomerResponse;
 import com.oms.dto.OrderResponse;
 import com.oms.entity.Customer;
@@ -9,13 +10,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 public class OrderService {
@@ -29,14 +27,13 @@ public class OrderService {
     }
 
 
-    public Order saveOrder(Customer customer) {
-        if (customer == null) {
+    public Order saveOrder(CustomerRequest request) {
+        if (request == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        //need to validate bc customer and order is 1:1
-        if (customer.getOrder() != null) {
-            throw new IllegalArgumentException("Customer already has an order");
-        }
+        Customer customer = customerService.findByEmail(request.getEmail())
+                .orElseGet(() -> customerService.saveCustomer(request));
+
         //initialze new order to get id
         Order order = new Order(LocalDateTime.now(), customer);
         Order savedOrder = orderRepository.save(order);

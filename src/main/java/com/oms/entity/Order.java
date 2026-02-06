@@ -26,8 +26,8 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
-    @OneToOne
-    @JoinColumn(name="customer_id", nullable=false, unique=true)
+    @ManyToOne
+    @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
     public Order(LocalDateTime orderDate, Customer customer) {
